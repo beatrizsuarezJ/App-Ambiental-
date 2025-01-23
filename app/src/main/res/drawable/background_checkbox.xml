@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Estado cuando el CheckBox está seleccionado -->
+    <item android:drawable="@drawable/ocultar_pass" android:state_checked="true" />
+    <!-- Estado cuando el CheckBox no está seleccionado -->
+    <item android:drawable="@drawable/ver_pass" />
+</selector>

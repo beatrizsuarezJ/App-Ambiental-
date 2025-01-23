@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondo_temperatura"
+    android:padding="16dp">
+    <!-- Foto -->
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"/>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:contentDescription="Imagen del usuario"
+        android:padding="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/usuario_ii" />
+`
+    <EditText
+        android:id="@+id/editTextNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textStyle="italic|bold"
+        android:hint="Nombre"/>
+
+    <EditText
+        android:id="@+id/editTextApellidos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textStyle="italic|bold"
+        android:hint="Apellidos"/>
+
+    <EditText
+        android:id="@+id/editTextEdad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Edad"
+        android:textColor="#000000"
+        android:textStyle="italic|bold"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/editTextGenero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textStyle="italic|bold"
+        android:hint="Género"/>
+
+    <EditText
+        android:id="@+id/editTextAlergia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textStyle="italic|bold"
+        android:hint="Alergia"/>
+
+    <EditText
+        android:id="@+id/editTextPadre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textStyle="italic|bold"
+        android:hint="Nombre del Padre"/>
+
+    <EditText
+        android:id="@+id/editTextMadre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textStyle="italic|bold"
+        android:hint="Nombre de la Madre"/>
+
+    <EditText
+        android:id="@+id/editTextTelefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número Telefónico"
+        android:textStyle="italic|bold"
+        android:textColor="#000000"
+        android:inputType="phone"/>
+
+    <Button
+        android:id="@+id/btnModificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="#ffffff"
+        android:textColor="#000000"
+        android:text="Modificar" />
+</LinearLayout>

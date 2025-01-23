@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CrearCuenta_ChildCare"
+    android:background="@drawable/ws"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="350dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="225dp"
+        android:background="@drawable/contenedores_diseno"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/family"
+                android:text="@string/crear_cuenta"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="375dp"
+        android:layout_height="460dp"
+        android:layout_marginTop="290dp"
+        android:background="@drawable/contenedores_diseno"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="364dp"
+                    android:layout_height="449dp"
+                    android:layout_margin="5dp">
+
+                    <!-- ... (Tu código actual) ... -->
+                    <TextView
+                        android:id="@+id/txtUsuario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="25dp"
+                        android:text="Usuario:"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtNameUsuario"
+                        android:layout_width="335dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="5dp"
+                        android:hint="Usuario"
+                        android:textColor="@color/black"
+                        android:textColorHint="#000000"
+                        android:textSize="18dp"
+                        android:textStyle="bold|italic"
+                        app:boxStrokeColor="@color/colorDeLineaInputs"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtUsuario" />
+
+                    <TextView
+                        android:id="@+id/txtNameCorreo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Correo Electrónico:"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.005"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edtNameUsuario" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtEmailCrearNew"
+                        android:layout_width="335dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="5dp"
+                        android:hint="E-mail"
+                        android:textColor="@color/black"
+                        android:textColorHint="#000000"
+                        android:textSize="18dp"
+                        android:textStyle="bold|italic"
+                        app:boxStrokeColor="@color/colorDeLineaInputs"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtNameCorreo" />
+
+
+                    <TextView
+                        android:id="@+id/txtNameContraseña"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:text="Escriba Su Contraseña:"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.004"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edtEmailCrearNew" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPassword"
+                        android:layout_width="335dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="5dp"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"
+                        android:shadowColor="#000000"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="#03A9F4"
+                        android:textColorHint="#000000"
+                        android:textColorLink="#03A9F4"
+                        android:textSize="18dp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtNameContraseña" />
+
+                    <CheckBox
+                        android:id="@+id/showPasswordCheckBox"
+                        android:layout_width="53dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="300dp"
+                        android:button="@drawable/background_checkbox"
+                        android:textColor="#000000"
+                        android:textColorHighlight="#000000"
+                        android:textColorHint="#000000"
+                        android:textColorLink="#000000"
+                        android:textStyle="italic|bold"
+                        app:flow_horizontalAlign="center"
+                        app:flow_verticalAlign="center"
+                        app:layout_constraintBottom_toBottomOf="@+id/edtPassword"
+                        app:layout_constraintEnd_toEndOf="@+id/edtPassword"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/edtPassword"
+                        app:layout_constraintTop_toTopOf="@+id/edtPassword"
+                        app:layout_constraintVertical_bias="1.0"
+                        app:useMaterialThemeColors="true" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPasswordCrearNwe"
+                        android:layout_width="335dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="104dp"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"
+                        android:shadowColor="#000000"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="#03A9F4"
+                        android:textColorHint="#000000"
+                        android:textColorLink="#03A9F4"
+                        android:textSize="18dp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtNameContraseña" />
+
+                    <TextView
+                        android:id="@+id/txtNameContraseña3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Confirme Su Contraseña:"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
+
+                    <CheckBox
+                        android:id="@+id/showPasswordCheckBox2"
+                        android:layout_width="53dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="300dp"
+                        android:button="@drawable/background_checkbox"
+                        android:textColor="#000000"
+                        android:textColorHighlight="#000000"
+                        android:textColorHint="#000000"
+                        android:textColorLink="#000000"
+                        android:textStyle="italic|bold"
+                        app:flow_horizontalAlign="center"
+                        app:flow_verticalAlign="center"
+                        app:layout_constraintBottom_toBottomOf="@+id/edtPasswordCrearNwe"
+                        app:layout_constraintEnd_toEndOf="@+id/edtPasswordCrearNwe"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/edtPasswordCrearNwe"
+                        app:layout_constraintTop_toTopOf="@+id/edtPasswordCrearNwe"
+                        app:useMaterialThemeColors="true" />
+
+
+                    <Button
+                        android:id="@+id/btnCrearCuenta"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="#ffffff"
+                        android:fontFamily="@font/family"
+                        android:text="Enviar"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="185dp"
+        android:layout_height="216dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo_app"
+        tools:layout_editor_absoluteY="9dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

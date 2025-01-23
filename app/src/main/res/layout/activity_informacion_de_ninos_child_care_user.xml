@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_temperatura"
+    tools:context=".InformacionDeNinos_ChildCare_User">
+
+
+    <!-- Barra de navegación -->
+    <LinearLayout
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <!-- Icono de regresar -->
+        <ImageView
+            android:id="@+id/btnRegresar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/flecha_regresar" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <!-- Texto "ChildCare" -->
+
+        <TextView
+            android:id="@+id/childCareText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/informacion_del_ni_o"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
+    <!-- Foto -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:contentDescription="Imagen del usuario"
+        android:padding="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/usuario_ii"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigationBar" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/navigationBar"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/contenedores_diseno"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigationBar">
+
+        <TextView
+            android:id="@+id/textviewnombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Nombre"
+            android:textColor="#000000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/textviewapellidos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Apellidos"
+            android:textColor="#000000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/textviewedad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Edad"
+            android:textColor="#000000"
+            android:textSize="18dp">
+
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/textviewgenero"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Genero"
+            android:textColor="#000000"
+            android:textSize="18dp"></TextView>
+
+        <TextView
+            android:id="@+id/textviewalergia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Nombre"
+            android:textColor="#000000"
+            android:textSize="18dp"></TextView>
+
+        <TextView
+            android:id="@+id/textviewnombrepadre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Nombre padre"
+            android:textColor="#000000"
+            android:textSize="18dp"></TextView>
+
+        <TextView
+            android:id="@+id/textviewnombremadre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Nombre madre"
+            android:textColor="#000000"
+            android:textSize="18dp"></TextView>
+
+        <TextView
+            android:id="@+id/textviewnumero"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Numero telefonico "
+            android:textColor="#000000"
+            android:textSize="18dp"></TextView>
+
+    </LinearLayout>
+
+
+    <!-- Botón para descargar como PDF -->
+    <Button
+        android:id="@+id/btnModific"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="95dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/editar"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnDownloadPDF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/descargar_pdf"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

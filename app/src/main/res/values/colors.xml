@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorDeLineaInputs">#000000</color>
+
+    <color name="colorAccent">#5500EC</color>
+
+<!--    declaramos color de la barra de navegacion-->
+    <color name="colorPrimary">#D7DBFF</color>
+
+    <color name="colorError">#FF0000</color> <!-- Rojo -->
+    <color name="colorSuccess">#00FF00</color> <!-- Verde -->
+
+    <color name="downloadPdf">#D7DBFF</color> <!-- Verde -->
+
+
+</resources>

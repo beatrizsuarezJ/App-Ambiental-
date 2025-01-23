@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">App Ambiental</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="txtOlvidastePass"><u>Olvide mi Contraseña</u></string>
+    <string name="txtCrearCuenta"><u>Crear Cuenta</u></string>
+    <string name="child_care">Ambiental Care</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
+    <string name="recuperar_password">Restablecer Password</string>
+    <string name="nueva_contrase_a">Nueva Contraseña:</string>
+    <string name="textoBienvenida">Bienvenido al Apartado de\n Información\n\n Nosotros Cuidaremos del planeta!!</string>
+    <string name="temperatura">Control de plantas</string>
+    <string name="asitencia">Agregar 2</string>
+    <string name="location">Localización</string>
+    <string name="informacionKids">Informacion de Plantas</string>
+    <string name="geolocalizaci_n">Geolocalización</string>
+    <string name="informacion_del_ni_o">Informacion</string>
+    <string name="textoBienvenidaAdmin">Control</string>
+    <string name="mofdificar">Modificar</string>
+    <string name="asistencia3">Ubicacion</string>
+</resources>

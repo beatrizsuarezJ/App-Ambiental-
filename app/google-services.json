@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "861564931540",
+    "project_id": "childcare-2346",
+    "storage_bucket": "childcare-2346.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861564931540:android:ef22787f3abf8a95ae9a41",
+        "android_client_info": {
+          "package_name": "com.example.childcare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHl70YsxhkCb04rfGMmdj5DsLDYCbBG-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

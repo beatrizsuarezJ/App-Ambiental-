@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TableCell" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
+    <style name="App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Cambia los atributos según tus preferencias -->
+        <item name="android:textColorHint">#000000</item> <!-- Color del texto de la etiqueta -->
+        <item name="hintTextColor">#000000</item> <!-- Color del texto de la etiqueta cuando está flotando -->
+        <item name="boxStrokeColor">#D7DBFF</item> <!-- Color del borde -->
+        <item name="boxBackgroundColor">@android:color/transparent</item> <!-- Color de fondo -->
+    </style>
+
+    <style name="App.TextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <!-- Cambia los atributos según tus preferencias -->
+        <item name="android:textColor">#000000</item> <!-- Color del texto -->
+        <item name="android:textSize">16sp</item> <!-- Tamaño del texto -->
+    </style>
+
+</resources>
+
