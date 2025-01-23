@@ -29,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             // Cierra esta actividad
             finish()
-        }, 3000) // 6500 milisegundos (2 segundos) de tiempo de espera
+        }, 1500) // 6500 milisegundos (2 segundos) de tiempo de espera
 
     }
 }
