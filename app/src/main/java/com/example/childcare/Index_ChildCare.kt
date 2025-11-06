@@ -40,21 +40,37 @@ class Index_ChildCare : AppCompatActivity() {
         val btnTemperaturaAdmin = findViewById<Button>(R.id.btnTemperatura)
         val btnRegistro = findViewById<Button>(R.id.btnUbicaionAdmin)
 
+        val btnRegistroPlanta = findViewById<Button>(R.id.btnRegistroPlantas)
+
+        val btnListDePlantas = findViewById<Button>(R.id.btnListaPlantas)
+
 
         //damos funcionalidad a ambos botenes!
-        //btnAsistencia
+        //btnAgregarFoto
         btnAsistenciAdmin.setOnClickListener {
             val i = Intent(this, Asistencia_ChildCare::class.java)
             startActivity(i)
         }
-        //btnTemoeratura
+        //btnControlDePlantas
         btnTemperaturaAdmin.setOnClickListener {
             val i = Intent(this, Temperatura_ChildCare::class.java)
             startActivity(i)
         }
-
+        //Geolocalizacion
         btnRegistro.setOnClickListener{
             val i = Intent(this,Location_ChildCare_User::class.java)
+            startActivity(i)
+        }
+
+        //Boton para el registro
+        btnRegistroPlanta.setOnClickListener {
+            val i = Intent(this, RegistroForestAdmin::class.java)
+            startActivity(i)
+        }
+
+        //Boton para las listas de las plantas
+        btnListDePlantas.setOnClickListener {
+            val i = Intent(this, ListaPlantas::class.java)
             startActivity(i)
         }
 
@@ -171,5 +187,7 @@ class Index_ChildCare : AppCompatActivity() {
     override fun onBackPressed() {
         // Eliminar la llamada a super.onBackPressed() para evitar que el usuario regrese atrás
     }
+
+    fun signOut(view: android.view.View) {}
 
 }

@@ -89,40 +89,52 @@ la autenticacion para poder loguearnos*/
     private fun signIn(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) { // si la autenticacion es exitosa
+                if (task.isSuccessful) { // Si la autenticación es exitosa
                     val user = firebaseAuth.currentUser
                     val verifica = user?.isEmailVerified
-                    if (verifica == true) { //si el correo es vericado
-                        val currentUserRef = FirebaseDatabase.getInstance().getReference("Usuarios_ChildCare").child(user.uid)
+                    if (verifica == true) { // Si el correo está verificado
+                        val currentUserRef = FirebaseDatabase.getInstance()
+                            .getReference("Usuarios_ChildCare")
+                            .child(user.uid)
+
                         currentUserRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(dataSnapshot: DataSnapshot) {
                                 val userRole = dataSnapshot.child("rol").getValue(Int::class.java)
-                                if (userRole == 0) {
-                                    // Redirigir al administrador a la actividad de administrador
-                                    val intent = Intent(this@IniciarSesion_ChildCare, Index_ChildCare::class.java)
-                                    startActivity(intent) //dirige al index del admionistradoer
-                                } else {
-                                    // Redirigir al usuario normal a la actividad de usuario normal
-                                    val intent = Intent(this@IniciarSesion_ChildCare, Index_ChildCare_User::class.java)
-                                    intent.putExtra("id",user.uid.toString())
-                                    startActivity(intent) //dirige al index del usuario
+
+                                when (userRole) {
+                                    0 -> {
+                                        val intent = Intent(this@IniciarSesion_ChildCare,
+                                            Index_ChildCare_User::class.java)
+                                        startActivity(intent) // Admin
+                                    }
+                                    1 -> {
+                                        val intent = Intent(this@IniciarSesion_ChildCare, ProductoresModerables_MiniAdmin::class.java)
+                                        startActivity(intent) // Supervisor (Provisional)
+                                    }
+                                    2 -> {
+                                        val intent = Intent(this@IniciarSesion_ChildCare, Index_ChildCare::class.java)
+                                        intent.putExtra("id", user.uid)
+                                        startActivity(intent) // Usuario normal
+                                    }
+                                    else -> {
+                                        mostrarToastPersonalizadoError(this@IniciarSesion_ChildCare, "¡Rol no reconocido!")
+                                    }
                                 }
                             }
 
                             override fun onCancelled(databaseError: DatabaseError) {
-                                // Manejar error de base de datos
+                                mostrarToastPersonalizadoError(this@IniciarSesion_ChildCare, "Error al obtener datos del usuario.")
                             }
                         })
                     } else {
-                        //Toast.makeText(baseContext, "No ha verificado su correo", Toast.LENGTH_SHORT).show()
                         mostrarToastPersonalizadoAdvertencia(this, "¡El Correo No Ha Sido Verificado!")
                     }
                 } else {
-                    //Toast.makeText(baseContext, "Error de Email o Contraseña", Toast.LENGTH_SHORT).show()
                     mostrarToastPersonalizadoError(this, "¡Error De Email o Contraseña!")
                 }
             }
     }
+
 
     //funcion para el diseño del toast de advertencia
     private fun mostrarToastPersonalizadoAdvertencia(context: Context, mensaje: String) {
