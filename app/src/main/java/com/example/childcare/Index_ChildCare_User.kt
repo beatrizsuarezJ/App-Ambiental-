@@ -33,7 +33,7 @@ class Index_ChildCare_User : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index_child_care_user)
 
-        //mostrar un toast para de bienbenido
+        //mostrar un toast para de bienvenido
         mostrarToastPersonalizadoEntrar(this, "¡Bienvenido A App Ambiental!")
 
 
@@ -188,6 +188,7 @@ class Index_ChildCare_User : AppCompatActivity() {
         val textViewNombreUsuario = findViewById<TextView>(R.id.userActual)
         textViewNombreUsuario.text = nombreUsuario
     }
+
 
     override fun onBackPressed() {
         // Eliminar la llamada a super.onBackPressed() para evitar que el usuario regrese atrás

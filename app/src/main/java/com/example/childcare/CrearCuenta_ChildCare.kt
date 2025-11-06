@@ -127,8 +127,12 @@ class CrearCuenta_ChildCare : AppCompatActivity() {
                     val user = firebaseAuth.currentUser
                     val userID = user?.uid
                     val databaseReference = FirebaseDatabase.getInstance().getReference()
-                    val userRole = if (nombre == "admin") 0 else 1
+
+                    // Todos los usuarios nuevos serán registrados como '2' (usuarios productores)
+                    val userRole = 2
+
                     val newUser = User(nombre, email, userRole)
+
                     userID?.let {
                         // Guardar información del usuario en la base de datos
                         databaseReference.child("Usuarios_ChildCare").child(user.uid).setValue(newUser)
@@ -137,16 +141,16 @@ class CrearCuenta_ChildCare : AppCompatActivity() {
                     // Enviar correo de verificación
                     sendEmailVerification()
                     mostrarToastPersonalizadoSuccess(this, "¡Cuenta creada correctamente!\n¡Requiere Verificación!")
+
                     // Cerrar sesión y redirigir al inicio de sesión
                     btnCrearExit()
-                    ///Toast.makeText(baseContext, "Cuenta creada correctamente\nRequiere Verificación", Toast.LENGTH_SHORT).show()
                 } else {
                     // Mostrar mensaje de error si la creación de cuenta falla
                     mostrarToastPersonalizadoError(this, "¡Algo salió mal. Error!\n" + task.exception)
-                    //Toast.makeText(baseContext, "Algo salió mal. Error" + task.exception, Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
 
     //funcion para el diseño del toast de error
     fun mostrarToastPersonalizadoError(context: Context, mensaje: String) {
