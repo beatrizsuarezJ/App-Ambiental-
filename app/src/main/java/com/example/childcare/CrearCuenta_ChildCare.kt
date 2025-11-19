@@ -7,12 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -21,38 +16,41 @@ import com.google.firebase.ktx.Firebase
 
 class CrearCuenta_ChildCare : AppCompatActivity() {
 
-    // Declaración de la instancia de FirebaseAuth
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_cuenta_child_care)
 
-        // Establecer la orientación de la pantalla a vertical
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-        // Llama a la función para manejar la visibilidad de la contraseña
         setupPasswordVisibilityToggle(R.id.edtPassword, R.id.showPasswordCheckBox)
         setupPasswordVisibilityToggle(R.id.edtPasswordCrearNwe, R.id.showPasswordCheckBox2)
 
-        // Inicializa FirebaseAuth
         firebaseAuth = Firebase.auth
 
-        // Inicializar vistas
         val txtNombreUsuarioNuevo: TextView = findViewById(R.id.edtNameUsuario)
         val txtEmailNuevo: TextView = findViewById(R.id.edtEmailCrearNew)
         val btnCrearCuenta : Button = findViewById(R.id.btnCrearCuenta)
 
-        // Configurar onClickListener para el botón de crear cuenta
+        // ------------------- AGREGADO: SPINNER MUNICIPIOS ----------------------
+        val spinnerMunicipios = findViewById<Spinner>(R.id.spinnerMunicipios)
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.municipios_chiapas,
+            android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerMunicipios.adapter = adapter
+        // -----------------------------------------------------------------------
+
         btnCrearCuenta.setOnClickListener {
             try {
-                // Obtener valores de los campos
                 val nombre = txtNombreUsuarioNuevo.text.toString()
                 val email = txtEmailNuevo.text.toString()
                 val pass1 = findViewById<EditText>(R.id.edtPassword).text.toString()
                 val pass2 = findViewById<EditText>(R.id.edtPasswordCrearNwe).text.toString()
 
-                // Validación de campos
                 if(nombre.isEmpty()){
                     txtNombreUsuarioNuevo.error = "Este Campo Es Obligatorio!!!"
                     txtNombreUsuarioNuevo.requestFocus()
@@ -66,30 +64,40 @@ class CrearCuenta_ChildCare : AppCompatActivity() {
                 }
 
                 if(pass1.isEmpty() || pass2.isEmpty()){
-                    Toast.makeText(this, "\t\t\t\t*****ERROR*****\n Ambos campos de contraseña son obligatorios",
+                    Toast.makeText(this,
+                        "*****ERROR*****\n Ambos campos de contraseña son obligatorios",
                         Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
 
-                // Verificar si las contraseñas coinciden
                 if(pass1 == pass2){
-                    createAccount(email, pass1, nombre)
+
+                    // ----------- AGREGADO: OBTENER MUNICIPIO SELECCIONADO -----------
+                    val municipioSeleccionado = spinnerMunicipios.selectedItem.toString()
+                    createAccount(email, pass1, nombre, municipioSeleccionado)
+                    // -----------------------------------------------------------------
+
                 } else {
-                    Toast.makeText(baseContext, "\t\t\t\t\t*****Error***** \n Verifica Que Las Contraseñas Coincidan",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext,
+                        "*****Error***** \n Verifica Que Las Contraseñas Coincidan",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     findViewById<EditText>(R.id.edtPassword).requestFocus()
                 }
+
             } catch (e: Exception) {
-                // Manejo de la excepción
-                e.printStackTrace() // Esto imprimirá el rastreo de la pila en la consola
-                // Puedes manejar la excepción de acuerdo a tus necesidades
-                // Por ejemplo, mostrar un mensaje de error al usuario
-                mostrarToastPersonalizadoAdvertencia(this, "¡Requisita Los Campos Correspondientes!")
+                e.printStackTrace()
+                mostrarToastPersonalizadoAdvertencia(
+                    this,
+                    "¡Requisita Los Campos Correspondientes!"
+                )
             }
         }
 
     }
 
-    //funcion para el diseño del toast de advertencia
+    //función para el diseño del toast de advertencia
     private fun mostrarToastPersonalizadoAdvertencia(context: Context, mensaje: String) {
         val inflater = LayoutInflater.from(context)
         val layout = inflater.inflate(R.layout.toast_advertencia, null)
@@ -107,52 +115,58 @@ class CrearCuenta_ChildCare : AppCompatActivity() {
         }
     }
 
-    // Función para manejar la visibilidad de la contraseña
     private fun setupPasswordVisibilityToggle(editTextId: Int, checkBoxId: Int) {
         val passwordEditText = findViewById<EditText>(editTextId)
         val showPasswordCheckBox = findViewById<CheckBox>(checkBoxId)
 
         showPasswordCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            passwordEditText.transformationMethod = if (isChecked) null else PasswordTransformationMethod()
+            passwordEditText.transformationMethod =
+                if (isChecked) null else PasswordTransformationMethod()
             passwordEditText.setSelection(passwordEditText.text.length)
         }
     }
 
-    // Función para crear una cuenta en Firebase
-    private fun createAccount(email: String, password: String, nombre: String) {
+    // -------------------- CAMBIADO: AHORA RECIBE MUNICIPIO -------------------------
+    private fun createAccount(email: String, password: String, nombre: String, municipio: String) {
+        // ------------------------------------------------------------------------------
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Obtener el usuario actual
+
                     val user = firebaseAuth.currentUser
                     val userID = user?.uid
                     val databaseReference = FirebaseDatabase.getInstance().getReference()
 
-                    // Todos los usuarios nuevos serán registrados como '2' (usuarios productores)
+                    // Mantengo tu lógica original
                     val userRole = 2
 
-                    val newUser = User(nombre, email, userRole)
+                    // ---------------- AGREGADO: GUARDAR MUNICIPIO --------------------
+                    val newUser = User(nombre, email, userRole, municipio)
+                    // -----------------------------------------------------------------
 
                     userID?.let {
-                        // Guardar información del usuario en la base de datos
-                        databaseReference.child("Usuarios_ChildCare").child(user.uid).setValue(newUser)
+                        databaseReference.child("Usuarios_ChildCare")
+                            .child(user.uid)
+                            .setValue(newUser)
                     }
 
-                    // Enviar correo de verificación
                     sendEmailVerification()
-                    mostrarToastPersonalizadoSuccess(this, "¡Cuenta creada correctamente!\n¡Requiere Verificación!")
+                    mostrarToastPersonalizadoSuccess(
+                        this,
+                        "¡Cuenta creada correctamente!\n¡Requiere Verificación!"
+                    )
 
-                    // Cerrar sesión y redirigir al inicio de sesión
                     btnCrearExit()
+
                 } else {
-                    // Mostrar mensaje de error si la creación de cuenta falla
-                    mostrarToastPersonalizadoError(this, "¡Algo salió mal. Error!\n" + task.exception)
+                    mostrarToastPersonalizadoError(
+                        this,
+                        "¡Algo salió mal. Error!\n" + task.exception
+                    )
                 }
             }
     }
 
-
-    //funcion para el diseño del toast de error
     fun mostrarToastPersonalizadoError(context: Context, mensaje: String) {
         val inflater = LayoutInflater.from(context)
         val layout = inflater.inflate(R.layout.toast_error, null)
@@ -170,7 +184,6 @@ class CrearCuenta_ChildCare : AppCompatActivity() {
         }
     }
 
-    //funcion para el diseño del toast de acces
     private fun mostrarToastPersonalizadoSuccess(context: Context, mensaje: String) {
         val inflater = LayoutInflater.from(context)
         val layout = inflater.inflate(R.layout.toast_succes, null)
@@ -188,20 +201,22 @@ class CrearCuenta_ChildCare : AppCompatActivity() {
         }
     }
 
-    // Función para enviar correo de verificación
     private fun sendEmailVerification() {
         val user: FirebaseUser = firebaseAuth.currentUser!!
-        user.sendEmailVerification().addOnCompleteListener(this) {task ->
+        user.sendEmailVerification().addOnCompleteListener(this) { task ->
             if (!task.isSuccessful){
-                Toast.makeText(baseContext, "Error al enviar el correo de verificación", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    baseContext,
+                    "Error al enviar el correo de verificación",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
-    // Función para cerrar sesión y redirigir al inicio de sesión
     private fun btnCrearExit() {
         firebaseAuth.signOut()
-        val i = Intent(this,IniciarSesion_ChildCare::class.java)
+        val i = Intent(this, IniciarSesion_ChildCare::class.java)
         startActivity(i)
     }
 }

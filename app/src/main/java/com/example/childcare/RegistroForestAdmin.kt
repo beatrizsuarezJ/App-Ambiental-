@@ -1,12 +1,17 @@
 package com.example.childcare
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.DatabaseReference
@@ -25,21 +30,42 @@ class RegistroForestAdmin : AppCompatActivity() {
     private lateinit var imgPlanta: ImageView
 
     private lateinit var databaseReference: DatabaseReference
-
-    // Uri de la imagen elegida
     private var imagenSeleccionadaUri: Uri? = null
 
-    // Launcher para abrir la galería
+    // CÓDIGO NUEVO: launcher para galería
     private val pickImage = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         if (uri != null) {
             imagenSeleccionadaUri = uri
-            imgPlanta.setImageURI(uri) // Vista previa
+            imgPlanta.setImageURI(uri)
         } else {
             Toast.makeText(this, "No se seleccionó imagen", Toast.LENGTH_SHORT).show()
         }
     }
+
+
+    // CÓDIGO NUEVO: Permisos
+    private val REQUEST_GALLERY_PERMISSION = 2000
+
+    private fun solicitarPermisoGaleria() {
+        val permiso = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+
+        if (ContextCompat.checkSelfPermission(this, permiso) == PackageManager.PERMISSION_GRANTED) {
+            abrirGaleria()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(permiso), REQUEST_GALLERY_PERMISSION)
+        }
+    }
+
+    private fun abrirGaleria() {
+        pickImage.launch("image/*")
+    }
+    // -------------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +80,12 @@ class RegistroForestAdmin : AppCompatActivity() {
         btnSeleccionarFoto = findViewById(R.id.btnSeleccionarFoto)
         imgPlanta = findViewById(R.id.imgPlanta)
 
-
         val btnVolver = findViewById<ImageView>(R.id.btnRegresar)
 
         databaseReference = FirebaseDatabase.getInstance().getReference("plantas")
 
         btnSeleccionarFoto.setOnClickListener {
-            pickImage.launch("image/*")
+            solicitarPermisoGaleria()  // ***CAMBIO IMPORTANTE***
         }
 
         btnRegistrar.setOnClickListener {
@@ -72,6 +97,27 @@ class RegistroForestAdmin : AppCompatActivity() {
             startActivity(i)
         }
     }
+
+    // ---------------------------
+    // CÓDIGO NUEVO: Resultado permisos
+    // ---------------------------
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_GALLERY_PERMISSION) {
+            if (grantResults.isNotEmpty() &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
+            ) {
+                abrirGaleria()
+            } else {
+                Toast.makeText(this, "❌ Permiso denegado para acceder a la galería", Toast.LENGTH_LONG).show()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+    // ---------------------------
 
     private fun registrarPlanta() {
         val nombre = etNombrePlanta.text.toString().trim()
@@ -85,19 +131,15 @@ class RegistroForestAdmin : AppCompatActivity() {
             return
         }
 
-        // Primero generamos el ID
-        val plantaId = databaseReference.push().key
-        if (plantaId == null) {
+        val plantaId = databaseReference.push().key ?: run {
             Toast.makeText(this, "Error al generar ID", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Si hay imagen seleccionada, súbela primero a Storage y luego guarda la planta con la URL
         val uri = imagenSeleccionadaUri
         if (uri != null) {
             subirImagenYGuardar(plantaId, uri, nombre, grosor, altura, hojas, total)
         } else {
-            // Guardar sin imagen
             val planta = Planta(
                 nombre = nombre,
                 grosor_cm = grosor.toDouble(),
@@ -121,13 +163,10 @@ class RegistroForestAdmin : AppCompatActivity() {
         total: String
     ) {
         val storage = FirebaseStorage.getInstance().reference
-        // Ruta sugerida: plantas/{plantaId}.jpg
         val fotoRef = storage.child("plantas/$plantaId.jpg")
 
-        // Subir archivo
         fotoRef.putFile(uri)
             .addOnSuccessListener {
-                // Obtener URL de descarga
                 fotoRef.downloadUrl.addOnSuccessListener { downloadUri ->
                     val planta = Planta(
                         nombre = nombre,
@@ -139,12 +178,10 @@ class RegistroForestAdmin : AppCompatActivity() {
                         imagenUrl = downloadUri.toString()
                     )
                     guardarEnDatabase(plantaId, planta)
-                }.addOnFailureListener { e ->
-                    Toast.makeText(this, "Error al obtener URL: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error al subir imagen: ${e.message}", Toast.LENGTH_LONG).show()
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al subir imagen", Toast.LENGTH_LONG).show()
             }
     }
 
@@ -154,8 +191,8 @@ class RegistroForestAdmin : AppCompatActivity() {
                 Toast.makeText(this, "✅ Planta registrada", Toast.LENGTH_LONG).show()
                 limpiarCampos()
             }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "❌ Error al guardar: ${e.message}", Toast.LENGTH_LONG).show()
+            .addOnFailureListener {
+                Toast.makeText(this, "❌ Error al guardar", Toast.LENGTH_LONG).show()
             }
     }
 
