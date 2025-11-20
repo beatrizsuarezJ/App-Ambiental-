@@ -1,17 +1,44 @@
 package com.example.childcare
 
+import org.junit.Assert.*
 import org.junit.Test
 
-import org.junit.Assert.*
+class InputValidationTest {
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
+    private fun validarEntradas(email: String, password: String): Boolean {
+        val patronEmail = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")
+        if (!email.matches(patronEmail)) return false
+        if (password.length < 6) return false
+
+        // Usamos el valor Unicode del signo $ para evitar el error
+        val blacklist = Regex(
+            "[\\{\\}\\[\\]\\u0024]|\"\\s*or\\s*\"|\\u0024ne",
+            RegexOption.IGNORE_CASE
+        )
+
+        if (blacklist.containsMatchIn(email) || blacklist.containsMatchIn(password)) {
+            return false
+        }
+
+        return true
+    }
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun entradasMaliciosas_sonRechazadas() {
+        val maliciosas = listOf(
+            "\" OR \"\"=\"",
+            "{ \"\$ne\": null }", // aquí no hay problema
+            "' OR 1=1 --",
+            "\"; drop table users; --"
+        )
+
+        maliciosas.forEach {
+            assertFalse("Debería rechazar: $it", validarEntradas(it, it))
+        }
+    }
+
+    @Test
+    fun entradasValidas_sonAceptadas() {
+        assertTrue(validarEntradas("usuario@example.com", "clave123"))
     }
 }
