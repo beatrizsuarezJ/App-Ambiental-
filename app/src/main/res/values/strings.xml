@@ -9,7 +9,7 @@
     <string name="recuperar_password">Restablecer Password</string>
     <string name="nueva_contrase_a">Nueva Contraseña:</string>
     <string name="textoBienvenida">Bienvenido al Apartado de\n Información\n\n Nosotros Cuidaremos del planeta!!</string>
-    <string name="temperatura">Control de plantas</string>
+    <string name="temperatura">boton 2</string>
     <string name="asitencia">Agregar 2</string>
     <string name="location">Localización</string>
     <string name="informacionKids">Informacion de Plantas</string>
@@ -18,4 +18,21 @@
     <string name="textoBienvenidaAdmin">Control</string>
     <string name="mofdificar">Modificar</string>
     <string name="asistencia3">Ubicacion</string>
+    <string name="registroplanta">Registro De Plantas</string>
+    <string name="ListPlantas">Lista de Plantas</string>
+
+    <string-array name="municipios_chiapas">
+        <item>Tuxtla Gutierrez</item>
+        <item>San Cristóbal de las Casas</item>
+        <item>Tapachula</item>
+        <item>Chiapilla</item>
+        <item>Pichucalco</item>
+        <item>Rayón</item>
+        <item>Tapilula</item>
+        <item>Pantepec</item>
+        <item>Comitán</item>
+        <item>Ocosingo</item>
+
+    </string-array>
+
 </resources>
