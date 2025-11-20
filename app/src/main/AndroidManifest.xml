@@ -5,26 +5,49 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"/>
+
 
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logo_app"
+        android:icon="@drawable/icon_forest_app"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChildCare"
         tools:targetApi="31">
+        <activity
+            android:name=".DetallePlanta"
+            android:exported="false" />
+        <activity
+            android:name=".ListaPlantas"
+            android:exported="false" />
+        <activity
+            android:name=".ProductoresModerables_MiniAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".RegistroForestAdmin"
+            android:exported="false" />
+        <activity android:name=".GestionPlanta" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -69,31 +92,25 @@
             android:exported="false" />
         <activity
             android:name=".ModificarUss"
-            android:exported="false" />
-
-        <!-- SplashActivity -->
-        <activity android:name=".SplashActivity"
+            android:exported="false" /> <!-- SplashActivity -->
+        <activity
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".IniciarSesion_ChildCare"
-            android:exported="false">
-        </activity>
-
+            android:exported="false" />
         <activity
             android:name=".kidsDatos"
             android:exported="false" />
         <activity
             android:name=".CrearCuenta_ChildCare"
             android:exported="false" />
-
-
-
     </application>
 
 </manifest>
