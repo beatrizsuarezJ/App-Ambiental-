@@ -141,7 +141,13 @@ class CrearCuenta_ChildCare : AppCompatActivity() {
                     val userRole = 2
 
                     // ---------------- AGREGADO: GUARDAR MUNICIPIO --------------------
-                    val newUser = User(nombre, email, userRole, municipio)
+                    val newUser = User(
+                        Nombre = nombre,
+                        Correo_Electronico = email,
+                        rol = userRole,
+                        Zona = municipio
+                    )
+
                     // -----------------------------------------------------------------
 
                     userID?.let {

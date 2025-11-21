@@ -88,74 +88,45 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/btnAsistencia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#ffffff"
-        android:text="Boton 1"
-        android:textColor="#000000"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toStartOf="@+id/btnUbicaionAdmin"
-        app:layout_constraintHorizontal_bias="0.253"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loremText" />
-
-    <Button
         android:id="@+id/btnUbicaionAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:backgroundTint="#ffffff"
         android:text="@string/asistencia3"
         android:textColor="#000000"
         android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loremText" />
-
-    <Button
-        android:id="@+id/btnTemperatura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#ffffff"
-        android:text="@string/temperatura"
-        android:textColor="#000000"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toStartOf="@+id/btnRegistroPlantas"
-        app:layout_constraintHorizontal_bias="0.228"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAsistencia" />
+        app:layout_constraintTop_toBottomOf="@+id/loremText"
+        app:layout_constraintVertical_bias="0.20999998" />
 
     <Button
         android:id="@+id/btnListaPlantas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="210dp"
         android:backgroundTint="#ffffff"
         android:text="Lista de Plantas"
         android:textColor="#000000"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAsistencia" />
+        app:layout_constraintTop_toBottomOf="@+id/loremText" />
 
     <Button
         android:id="@+id/btnRegistroPlantas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="210dp"
         android:backgroundTint="#ffffff"
         android:text="Registro "
         android:textColor="#000000"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAsistencia" />
+        app:layout_constraintTop_toBottomOf="@+id/loremText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

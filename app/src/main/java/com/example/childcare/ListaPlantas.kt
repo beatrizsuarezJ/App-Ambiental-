@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseAuth
+
 
 class ListaPlantas : AppCompatActivity() {
 
@@ -18,11 +20,8 @@ class ListaPlantas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_plantas)
 
-
-
-
         recycler = findViewById(R.id.recyclerPlantas)
-        recycler.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2) // 2 columnas
+        recycler.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
         recycler.setHasFixedSize(true)
 
         adapter = PlantaAdapter(mutableListOf()) { item ->
@@ -32,14 +31,19 @@ class ListaPlantas : AppCompatActivity() {
         }
         recycler.adapter = adapter
 
+        // ⬅ OBTENER UID
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-        dbRef = FirebaseDatabase.getInstance().getReference("plantas")
+        // ⬅ NUEVA RUTA CORRECTA
+        dbRef = FirebaseDatabase.getInstance()
+            .getReference("Usuarios_ChildCare")
+            .child(uid!!)
+            .child("plantas")
+
         escucharCambios()
-
     }
 
     private fun escucharCambios() {
-        // Escucha en tiempo real (se actualiza sola la lista)
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val nuevos = mutableListOf<PlantaItem>()
@@ -53,9 +57,7 @@ class ListaPlantas : AppCompatActivity() {
                 adapter.replaceAll(nuevos)
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                // Maneja error si quieres (Toast/Log)
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 }

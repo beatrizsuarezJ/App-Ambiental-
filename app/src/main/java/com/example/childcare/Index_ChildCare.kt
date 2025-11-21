@@ -36,8 +36,7 @@ class Index_ChildCare : AppCompatActivity() {
         mostrarToastPersonalizadoEntrar(this, "¡Bienvenido A App Ambiental")
 
         //declaramos botnes de la pantalla principal
-        val btnAsistenciAdmin = findViewById<Button>(R.id.btnAsistencia)
-        val btnTemperaturaAdmin = findViewById<Button>(R.id.btnTemperatura)
+
         val btnRegistro = findViewById<Button>(R.id.btnUbicaionAdmin)
 
         val btnRegistroPlanta = findViewById<Button>(R.id.btnRegistroPlantas)
@@ -46,16 +45,7 @@ class Index_ChildCare : AppCompatActivity() {
 
 
         //damos funcionalidad a ambos botenes!
-        //btnAgregarFoto
-        btnAsistenciAdmin.setOnClickListener {
-            val i = Intent(this, Asistencia_ChildCare::class.java)
-            startActivity(i)
-        }
-        //btnControlDePlantas
-        btnTemperaturaAdmin.setOnClickListener {
-            val i = Intent(this, Temperatura_ChildCare::class.java)
-            startActivity(i)
-        }
+
         //Geolocalizacion
         btnRegistro.setOnClickListener{
             val i = Intent(this,Location_ChildCare_User::class.java)
