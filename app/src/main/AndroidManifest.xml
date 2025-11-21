@@ -29,6 +29,9 @@
         android:theme="@style/Theme.ChildCare"
         tools:targetApi="31">
         <activity
+            android:name=".SuperAdmin"
+            android:exported="false" />
+        <activity
             android:name=".MisPlantasActivity"
             android:exported="false" />
         <activity

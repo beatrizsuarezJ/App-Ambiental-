@@ -104,7 +104,7 @@ la autenticacion para poder loguearnos*/
                                 when (userRole) {
                                     0 -> {
                                         val intent = Intent(this@IniciarSesion_ChildCare,
-                                            Index_ChildCare_User::class.java)
+                                            SuperAdmin::class.java)
                                         startActivity(intent) // Admin
                                     }
                                     1 -> {
