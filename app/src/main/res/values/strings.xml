@@ -9,7 +9,6 @@
     <string name="recuperar_password">Restablecer Password</string>
     <string name="nueva_contrase_a">Nueva Contraseña:</string>
     <string name="textoBienvenida">Bienvenido al Apartado de\n Información\n\n Nosotros Cuidaremos del planeta!!</string>
-    <string name="temperatura">boton 2</string>
     <string name="asitencia">Agregar 2</string>
     <string name="location">Localización</string>
     <string name="informacionKids">Informacion de Plantas</string>
@@ -20,6 +19,8 @@
     <string name="asistencia3">Ubicacion</string>
     <string name="registroplanta">Registro De Plantas</string>
     <string name="ListPlantas">Lista de Plantas</string>
+    <string name="textoBienvenidaSupervisor">Supervisor De Zona</string>
+    <string name="ListProductores">Lista de Produtores de Zona</string>
 
     <string-array name="municipios_chiapas">
         <item>Tuxtla Gutierrez</item>

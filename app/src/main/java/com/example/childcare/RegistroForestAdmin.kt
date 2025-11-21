@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -32,7 +33,7 @@ class RegistroForestAdmin : AppCompatActivity() {
     private lateinit var databaseReference: DatabaseReference
     private var imagenSeleccionadaUri: Uri? = null
 
-    // CÓDIGO NUEVO: launcher para galería
+    // Galería
     private val pickImage = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -44,28 +45,7 @@ class RegistroForestAdmin : AppCompatActivity() {
         }
     }
 
-
-    // CÓDIGO NUEVO: Permisos
     private val REQUEST_GALLERY_PERMISSION = 2000
-
-    private fun solicitarPermisoGaleria() {
-        val permiso = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Manifest.permission.READ_MEDIA_IMAGES
-        } else {
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        }
-
-        if (ContextCompat.checkSelfPermission(this, permiso) == PackageManager.PERMISSION_GRANTED) {
-            abrirGaleria()
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(permiso), REQUEST_GALLERY_PERMISSION)
-        }
-    }
-
-    private fun abrirGaleria() {
-        pickImage.launch("image/*")
-    }
-    // -------------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,63 +62,74 @@ class RegistroForestAdmin : AppCompatActivity() {
 
         val btnVolver = findViewById<ImageView>(R.id.btnRegresar)
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("plantas")
-
-        btnSeleccionarFoto.setOnClickListener {
-            solicitarPermisoGaleria()  // ***CAMBIO IMPORTANTE***
+        // 🔥 Obtener UID del usuario actual
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid == null) {
+            Toast.makeText(this, "Error: usuario no autenticado", Toast.LENGTH_LONG).show()
+            finish()
+            return
         }
 
-        btnRegistrar.setOnClickListener {
-            registrarPlanta()
-        }
+        // 🔥 Nueva referencia correcta
+        databaseReference = FirebaseDatabase.getInstance()
+            .getReference("Usuarios_ChildCare")
+            .child(uid)
+            .child("plantas")
+
+        btnSeleccionarFoto.setOnClickListener { solicitarPermisoGaleria() }
+
+        btnRegistrar.setOnClickListener { registrarPlanta(uid) }
 
         btnVolver.setOnClickListener {
-            val i = Intent(this, Index_ChildCare::class.java)
-            startActivity(i)
+            startActivity(Intent(this, Index_ChildCare::class.java))
         }
     }
 
-    // ---------------------------
-    // CÓDIGO NUEVO: Resultado permisos
-    // ---------------------------
+    private fun solicitarPermisoGaleria() {
+        val permiso = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            Manifest.permission.READ_MEDIA_IMAGES
+        else
+            Manifest.permission.READ_EXTERNAL_STORAGE
+
+        if (ContextCompat.checkSelfPermission(this, permiso) == PackageManager.PERMISSION_GRANTED) {
+            pickImage.launch("image/*")
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(permiso), REQUEST_GALLERY_PERMISSION)
+        }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_GALLERY_PERMISSION) {
-            if (grantResults.isNotEmpty() &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED
-            ) {
-                abrirGaleria()
-            } else {
-                Toast.makeText(this, "❌ Permiso denegado para acceder a la galería", Toast.LENGTH_LONG).show()
-            }
+        if (requestCode == REQUEST_GALLERY_PERMISSION &&
+            grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+        ) {
+            pickImage.launch("image/*")
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-    // ---------------------------
 
-    private fun registrarPlanta() {
+    private fun registrarPlanta(uid: String) {
         val nombre = etNombrePlanta.text.toString().trim()
         val grosor = etGrosor.text.toString().trim()
         val altura = etAltura.text.toString().trim()
         val hojas = etHojas.text.toString().trim()
         val total = etTotalPlantas.text.toString().trim()
 
-        if (nombre.isEmpty() || grosor.isEmpty() || altura.isEmpty() || hojas.isEmpty() || total.isEmpty()) {
-            Toast.makeText(this, "⚠ Completa todos los campos", Toast.LENGTH_SHORT).show()
+        if (nombre.isEmpty() || grosor.isEmpty() || altura.isEmpty() ||
+            hojas.isEmpty() || total.isEmpty()) {
+
+            Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val plantaId = databaseReference.push().key ?: run {
-            Toast.makeText(this, "Error al generar ID", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val plantaId = databaseReference.push().key ?: return
 
         val uri = imagenSeleccionadaUri
         if (uri != null) {
-            subirImagenYGuardar(plantaId, uri, nombre, grosor, altura, hojas, total)
+            subirImagenYGuardar(plantaId, uid, uri, nombre, grosor, altura, hojas, total)
         } else {
             val planta = Planta(
                 nombre = nombre,
@@ -155,6 +146,7 @@ class RegistroForestAdmin : AppCompatActivity() {
 
     private fun subirImagenYGuardar(
         plantaId: String,
+        uid: String,
         uri: Uri,
         nombre: String,
         grosor: String,
@@ -162,8 +154,9 @@ class RegistroForestAdmin : AppCompatActivity() {
         hojas: String,
         total: String
     ) {
-        val storage = FirebaseStorage.getInstance().reference
-        val fotoRef = storage.child("plantas/$plantaId.jpg")
+        // 🔥 Nueva ruta: plantas del usuario
+        val fotoRef = FirebaseStorage.getInstance().reference
+            .child("plantas/$uid/$plantaId.jpg")
 
         fotoRef.putFile(uri)
             .addOnSuccessListener {
@@ -188,11 +181,11 @@ class RegistroForestAdmin : AppCompatActivity() {
     private fun guardarEnDatabase(plantaId: String, planta: Planta) {
         databaseReference.child(plantaId).setValue(planta)
             .addOnSuccessListener {
-                Toast.makeText(this, "✅ Planta registrada", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Planta registrada", Toast.LENGTH_LONG).show()
                 limpiarCampos()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "❌ Error al guardar", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error al guardar", Toast.LENGTH_LONG).show()
             }
     }
 
