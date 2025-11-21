@@ -8,15 +8,25 @@
     android:background="@drawable/fondo">
 
     <!-- Barra de navegación -->
+    <!-- ▒▒▒ FRANJA SUPERIOR MORADA ▒▒▒ -->
+    <View
+        android:id="@+id/statusBarFake"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#D7C2FF"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- ▒▒▒ BARRA DE NAVEGACIÓN LAVANDA ▒▒▒ -->
     <LinearLayout
         android:id="@+id/navigationBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="16dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="#DDE3FF"
+        app:layout_constraintTop_toBottomOf="@id/statusBarFake">
 
 
 
