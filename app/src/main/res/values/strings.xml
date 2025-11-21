@@ -21,6 +21,7 @@
     <string name="ListPlantas">Lista de Plantas</string>
     <string name="textoBienvenidaSupervisor">Supervisor De Zona</string>
     <string name="ListProductores">Lista de Produtores de Zona</string>
+    <string name="textoBienvenidaSuperAdmin">Administrador</string>
 
     <string-array name="municipios_chiapas">
         <item>Tuxtla Gutierrez</item>
