@@ -1,13 +1,69 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ws">
 
+    <!-- ▒▒▒ FRANJA SUPERIOR MORADA ▒▒▒ -->
+    <View
+        android:id="@+id/statusBarFake"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#D7C2FF" />
+
+    <!-- ▒▒▒ BARRA DE NAVEGACIÓN LAVANDA ▒▒▒ -->
+    <LinearLayout
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#DDE3FF"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <!-- Botón redondo gris -->
+        <LinearLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:elevation="6dp">
+
+            <ImageView
+                android:id="@+id/btnnRegresar"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/flecha_regresar" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <!-- Título centrado -->
+        <TextView
+            android:id="@+id/childCareText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ListPlantas"
+            android:textColor="#000000"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/family" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <!-- ▒▒▒ LISTA DE TUS PLANTAS ▒▒▒ -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMisPlantas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:padding="8dp" />
 
 </LinearLayout>

@@ -8,10 +8,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +22,7 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+
 
 class SuperAdmin : AppCompatActivity() {
 
@@ -40,9 +43,15 @@ class SuperAdmin : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_super_admin)
 
+        // Evitar botón físico Back
+        onBackPressedDispatcher.addCallback(this) {
+            Toast.makeText(this@SuperAdmin, "Acción no permitida", Toast.LENGTH_SHORT).show()
+        }
+
+        // Insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
 
@@ -50,46 +59,25 @@ class SuperAdmin : AppCompatActivity() {
         firebaseAuth = Firebase.auth
         database = FirebaseDatabase.getInstance()
 
-        // Layouts
+        // Instancias layouts
         layoutPrincipal = findViewById(R.id.layoutPrincipal)
         layoutZonas = findViewById(R.id.layoutZonas)
         layoutUsuarios = findViewById(R.id.layoutUsuarios)
         layoutPlantas = findViewById(R.id.layoutPlantas)
 
-        // Carousel
-        val carousel: ImageCarousel = findViewById(R.id.carousel)
-        val carouselList = mutableListOf(
-            CarouselItem("https://i.pinimg.com/736x/50/08/cb/5008cbf9384338415f28dbe692af0544.jpg"),
-            CarouselItem("https://i.pinimg.com/736x/46/f5/06/46f5063c1f1094f7aaf274e88450c8a5.jpg"),
-            CarouselItem("https://i.pinimg.com/736x/86/60/8f/86608fb9bb9cfa88e0d02c992c2f5e4c.jpg"),
-            CarouselItem("https://i.pinimg.com/736x/b4/27/4c/b4274cc13a02b35241157a9134c05b5e.jpg")
-        )
-        carousel.addData(carouselList)
-        carousel.autoPlay = true
-        carousel.autoPlayDelay = 2500
-        carousel.showNavigationButtons = false
+        // Carrusel
+        configurarCarousel()
 
-        // Toast de bienvenida
-        mostrarToastPersonalizadoEntrar(this, "¡Bienvenido A App Ambiental")
+        // Toast bienvenida
+        mostrarToastPersonalizadoEntrar(this, "¡Bienvenido a App Ambiental!")
 
-        // Mostrar nombre del usuario
-        val currentUser = firebaseAuth.currentUser
-        val uid = currentUser?.uid
-        if (uid != null) {
-            val userRef = database.reference.child("Usuarios_ChildCare").child(uid)
-            userRef.child("nombre").addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val nombreUsuario = snapshot.getValue(String::class.java)
-                    actualizarInterfazUsuario(nombreUsuario)
-                }
-                override fun onCancelled(error: DatabaseError) {}
-            })
-        }
+        // Cargar nombre del usuario
+        cargarNombreUsuario()
 
         // Botón cerrar sesión
         findViewById<ImageView>(R.id.logOutExitSesion).setOnClickListener { signOut() }
 
-        // Botón Zonas
+        // Botón entrar a Zonas
         findViewById<View>(R.id.btnZonas).setOnClickListener { mostrarZonas() }
 
         // Botones regresar
@@ -98,48 +86,80 @@ class SuperAdmin : AppCompatActivity() {
         findViewById<View>(R.id.btnBackFromPlantas).setOnClickListener { mostrarUsuariosActual() }
     }
 
-    // --- Toasts ---
-    private fun mostrarToastPersonalizadoEntrar(context: Context, mensaje: String) {
-        val inflater = LayoutInflater.from(context)
-        val layout = inflater.inflate(R.layout.toast_succes, null)
-        val text = layout.findViewById<TextView>(R.id.text)
-        text.text = mensaje
-        val icon = layout.findViewById<ImageView>(R.id.icon)
-        icon.setImageResource(R.drawable.advertencia)
-        with (Toast(context)) { duration = Toast.LENGTH_SHORT; view = layout; show() }
+    // -------------------------------------------------------------------------
+    // C A R R U S E L
+    // -------------------------------------------------------------------------
+    private fun configurarCarousel() {
+        val carousel: ImageCarousel = findViewById(R.id.carousel)
+        carousel.addData(
+            listOf(
+                CarouselItem("https://i.pinimg.com/736x/50/08/cb/5008cbf9384338415f28dbe692af0544.jpg"),
+                CarouselItem("https://i.pinimg.com/736x/46/f5/06/46f5063c1f1094f7aaf274e88450c8a5.jpg"),
+                CarouselItem("https://i.pinimg.com/736x/86/60/8f/86608fb9bb9cfa88e0d02c992c2f5e4c.jpg"),
+                CarouselItem("https://i.pinimg.com/736x/b4/27/4c/b4274cc13a02b35241157a9134c05b5e.jpg")
+            )
+        )
+        carousel.autoPlay = true
+        carousel.autoPlayDelay = 2500
+        carousel.showNavigationButtons = false
     }
 
-    private fun mostrarToastLogout(context: Context, mensaje: String) {
-        val inflater = LayoutInflater.from(context)
-        val layout = inflater.inflate(R.layout.toast_logout, null)
-        val text = layout.findViewById<TextView>(R.id.text)
-        text.text = mensaje
-        val icon = layout.findViewById<ImageView>(R.id.icon)
-        icon.setImageResource(R.drawable.cerrar_sesion)
-        with (Toast(context)) { duration = Toast.LENGTH_SHORT; view = layout; show() }
+    // -------------------------------------------------------------------------
+    // U S U A R I O
+    // -------------------------------------------------------------------------
+    private fun cargarNombreUsuario() {
+        val uid = firebaseAuth.currentUser?.uid ?: return
+        val ref = database.reference.child("Usuarios_ChildCare").child(uid).child("nombre")
+
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                findViewById<TextView>(R.id.userActual).text =
+                    snapshot.getValue(String::class.java) ?: ""
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
-    // --- Función cerrar sesión ---
     private fun signOut() {
         firebaseAuth.signOut()
         mostrarToastLogout(this, "¡Sesión Cerrada Exitosamente!")
-        val intent = Intent(this, IniciarSesion_ChildCare::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+        startActivity(Intent(this, IniciarSesion_ChildCare::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
         finish()
     }
 
-    // --- Actualizar nombre ---
-    private fun actualizarInterfazUsuario(nombreUsuario: String?) {
-        val textViewNombreUsuario = findViewById<TextView>(R.id.userActual)
-        textViewNombreUsuario.text = nombreUsuario
+    // -------------------------------------------------------------------------
+    // T O A S T S
+    // -------------------------------------------------------------------------
+    private fun mostrarToastPersonalizadoEntrar(context: Context, mensaje: String) {
+        val view = LayoutInflater.from(context).inflate(R.layout.toast_succes, null)
+        view.findViewById<TextView>(R.id.text).text = mensaje
+        view.findViewById<ImageView>(R.id.icon).setImageResource(R.drawable.advertencia)
+
+        Toast(context).apply {
+            duration = Toast.LENGTH_SHORT
+            this.view = view
+            show()
+        }
     }
 
-    override fun onBackPressed() {
-        // Evitar que el botón físico de retroceso haga nada
+    private fun mostrarToastLogout(context: Context, mensaje: String) {
+        val view = LayoutInflater.from(context).inflate(R.layout.toast_logout, null)
+        view.findViewById<TextView>(R.id.text).text = mensaje
+        view.findViewById<ImageView>(R.id.icon).setImageResource(R.drawable.cerrar_sesion)
+
+        Toast(context).apply {
+            duration = Toast.LENGTH_SHORT
+            this.view = view
+            show()
+        }
     }
 
-    // --- Funciones de navegación ---
+    // -------------------------------------------------------------------------
+    // N A V E G A C I Ó N   D E   L A Y O U T S
+    // -------------------------------------------------------------------------
     private fun regresarPrincipal() {
         layoutPrincipal.visibility = View.VISIBLE
         layoutZonas.visibility = View.GONE
@@ -153,94 +173,107 @@ class SuperAdmin : AppCompatActivity() {
         layoutUsuarios.visibility = View.GONE
         layoutPlantas.visibility = View.GONE
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerZonas)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        findViewById<TextView>(R.id.titleZonas).text = "ZONAS"
 
-        val zonasRef = database.reference.child("Usuarios_ChildCare")
-        zonasRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        val recycler = findViewById<RecyclerView>(R.id.recyclerZonas)
+        recycler.layoutManager = LinearLayoutManager(this)
+        recycler.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        val ref = database.reference.child("Usuarios_ChildCare")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val zonasSet = mutableSetOf<String>()
-                snapshot.children.forEach { userSnap ->
-                    val zona = userSnap.child("zona").getValue(String::class.java)
-                    if (zona != null) zonasSet.add(zona)
+
+                val zonas = snapshot.children
+                    .mapNotNull { it.child("zona").getValue(String::class.java) }
+                    .toSet()
+                    .map { Zona(it) }
+
+                recycler.adapter = GenericAdapter(zonas, R.layout.item_simple_text) { z, view ->
+                    view.findViewById<TextView>(R.id.tvItem).text = z.nombre
+                    view.setOnClickListener { mostrarUsuariosZona(z.nombre) }
                 }
-                val listaZonas = zonasSet.map { Zona(it) }.toMutableList()
-                val adapter = GenericAdapter(listaZonas, R.layout.item_simple_text) { zona, view ->
-                    val tv = view.findViewById<TextView>(R.id.tvItem)
-                    tv.text = zona.nombre
-                    view.setOnClickListener { mostrarUsuariosZona(zona.nombre) }
-                }
-                recyclerView.adapter = adapter
             }
+
             override fun onCancelled(error: DatabaseError) {}
         })
     }
 
+
     private fun mostrarUsuariosZona(nombreZona: String) {
         zonaActual = nombreZona
+
         layoutPrincipal.visibility = View.GONE
         layoutZonas.visibility = View.GONE
         layoutUsuarios.visibility = View.VISIBLE
         layoutPlantas.visibility = View.GONE
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerUsuarios)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        findViewById<TextView>(R.id.titleUsuarios).text = "USUARIOS — Zona: $nombreZona"
 
-        val usuariosRef = database.reference.child("Usuarios_ChildCare")
-        usuariosRef.orderByChild("zona").equalTo(nombreZona)
+        val recycler = findViewById<RecyclerView>(R.id.recyclerUsuarios)
+        recycler.layoutManager = LinearLayoutManager(this)
+        recycler.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        val ref = database.reference.child("Usuarios_ChildCare")
+        ref.orderByChild("zona").equalTo(nombreZona)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val listaUsuarios = snapshot.children.map { userSnap ->
-                        Usuario(
-                            uid = userSnap.key ?: "",
-                            nombre = userSnap.child("nombre").getValue(String::class.java) ?: "",
-                            correo_Electronico = userSnap.child("correo_Electronico").getValue(String::class.java) ?: "",
-                            rol = userSnap.child("rol").getValue(Int::class.java) ?: 0,
-                            zona = userSnap.child("zona").getValue(String::class.java) ?: ""
-                        )
-                    }.toMutableList()
 
-                    val adapter = GenericAdapter(listaUsuarios, R.layout.item_simple_text) { usuario, view ->
-                        val tv = view.findViewById<TextView>(R.id.tvItem)
-                        tv.text = usuario.nombre
-                        view.setOnClickListener { mostrarPlantasUsuario(usuario.uid) }
+                    val usuarios = snapshot.children.map {
+                        Usuario(
+                            uid = it.key ?: "",
+                            nombre = it.child("nombre").getValue(String::class.java) ?: "",
+                            correo_Electronico = it.child("correo_Electronico").getValue(String::class.java) ?: "",
+                            rol = it.child("rol").getValue(Int::class.java) ?: 0,
+                            zona = it.child("zona").getValue(String::class.java) ?: ""
+                        )
                     }
-                    recyclerView.adapter = adapter
+
+                    recycler.adapter =
+                        GenericAdapter(usuarios, R.layout.item_simple_text) { u, view ->
+                            view.findViewById<TextView>(R.id.tvItem).text = u.nombre
+                            view.setOnClickListener { mostrarPlantasUsuario(u.uid, u.nombre) }
+                        }
                 }
+
                 override fun onCancelled(error: DatabaseError) {}
             })
     }
 
-    private fun mostrarPlantasUsuario(uid: String) {
+
+    private fun mostrarPlantasUsuario(uid: String, nombreUsuario: String) {
         usuarioActualId = uid
+
         layoutPrincipal.visibility = View.GONE
         layoutZonas.visibility = View.GONE
         layoutUsuarios.visibility = View.GONE
         layoutPlantas.visibility = View.VISIBLE
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerPlantas)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        findViewById<TextView>(R.id.titlePlantas).text = "PLANTAS — $nombreUsuario"
 
-        val plantasRef = database.reference.child("Usuarios_ChildCare").child(uid).child("plantas")
-        plantasRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        val recycler = findViewById<RecyclerView>(R.id.recyclerPlantas)
+        recycler.layoutManager = LinearLayoutManager(this)
+        recycler.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        val ref = database.reference.child("Usuarios_ChildCare").child(uid).child("plantas")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val listaPlantas = snapshot.children.map { plantaSnap ->
-                    PlantaData(
-                        nombre = plantaSnap.child("nombre").getValue(String::class.java) ?: "",
-                        altura_cm = plantaSnap.child("altura_cm").getValue(Int::class.java) ?: 0,
-                        grosor_cm = plantaSnap.child("grosor_cm").getValue(Int::class.java) ?: 0,
-                        hojas = plantaSnap.child("hojas").getValue(Int::class.java) ?: 0,
-                        total = plantaSnap.child("total").getValue(Int::class.java) ?: 0,
-                        imagenUrl = plantaSnap.child("imagenUrl").getValue(String::class.java) ?: ""
-                    )
-                }.toMutableList()
 
-                val adapter = GenericAdapter(listaPlantas, R.layout.item_simple_text) { planta, view ->
-                    val tv = view.findViewById<TextView>(R.id.tvItem)
-                    tv.text = planta.nombre
+                val plantas = snapshot.children.map {
+                    PlantaData(
+                        nombre = it.child("nombre").getValue(String::class.java) ?: "",
+                        altura_cm = it.child("altura_cm").getValue(Int::class.java) ?: 0,
+                        grosor_cm = it.child("grosor_cm").getValue(Int::class.java) ?: 0,
+                        hojas = it.child("hojas").getValue(Int::class.java) ?: 0,
+                        total = it.child("total").getValue(Int::class.java) ?: 0,
+                        imagenUrl = it.child("imagenUrl").getValue(String::class.java) ?: "",
+                    )
                 }
-                recyclerView.adapter = adapter
+
+                recycler.adapter = PlantasAdapter(plantas) { planta ->
+                    Toast.makeText(this@SuperAdmin, planta.nombre, Toast.LENGTH_SHORT).show()
+                }
             }
+
             override fun onCancelled(error: DatabaseError) {}
         })
     }

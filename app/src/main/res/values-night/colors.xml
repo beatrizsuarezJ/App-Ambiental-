@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorDeLineaInputs">#FFFFFFFF</color> <!-- Texto claro -->
+
+    <color name="colorAccent">#5500EC</color>
+
+    <color name="colorPrimary">#000000</color> <!-- Fondo oscuro -->
+
+    <color name="colorError">#FF7777</color>
+    <color name="colorSuccess">#66FF66</color>
+
+    <color name="downloadPdf">#222222</color>
+
+    <!-- Colores para status y nav bar en modo oscuro -->
+    <color name="colorStatusBar">#000000</color> <!-- NEGRO -->
+    <color name="colorNavBar">#000000</color>    <!-- NEGRO -->
+
+
+    <color name="grayBackground">#E0E0E0</color>
+
+    <color name="transparent">#00000000</color>
+
+
+    <color name="primaryTextColor">#FF000000</color>
+    <color name="secondaryTextColor">#88000000</color>
+
+</resources>

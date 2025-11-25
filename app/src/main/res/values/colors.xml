@@ -7,13 +7,29 @@
 
     <color name="colorAccent">#5500EC</color>
 
-<!--    declaramos color de la barra de navegacion-->
     <color name="colorPrimary">#D7DBFF</color>
 
-    <color name="colorError">#FF0000</color> <!-- Rojo -->
-    <color name="colorSuccess">#00FF00</color> <!-- Verde -->
+    <color name="colorError">#FF0000</color>
+    <color name="colorSuccess">#00FF00</color>
 
-    <color name="downloadPdf">#D7DBFF</color> <!-- Verde -->
+    <color name="downloadPdf">#D7DBFF</color>
+
+    <!-- Colores para status y nav bar en modo claro -->
+    <color name="colorStatusBar">#FFFFFFFF</color> <!-- BLANCO -->
+    <color name="colorNavBar">#FFFFFFFF</color>    <!-- BLANCO -->
+
+
+    <color name="grayBackground">#E0E0E0</color>
+
+
+    <color name="transparent">#00000000</color>
+
+    <color name="primaryTextColor">#FF000000</color>
+    <color name="secondaryTextColor">#88000000</color>
+
+    <color name="purple_500">#4CAF50</color> <!-- Fondo principal del botón -->
+    <color name="purple_200">#7704FA</color> <!-- Efecto ripple al tocar -->
+
 
 
 </resources>
