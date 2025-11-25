@@ -1,17 +1,12 @@
 package com.example.childcare
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -33,19 +28,17 @@ class RegistroForestAdmin : AppCompatActivity() {
     private lateinit var databaseReference: DatabaseReference
     private var imagenSeleccionadaUri: Uri? = null
 
-    // Galería
-    private val pickImage = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        if (uri != null) {
-            imagenSeleccionadaUri = uri
-            imgPlanta.setImageURI(uri)
-        } else {
-            Toast.makeText(this, "No se seleccionó imagen", Toast.LENGTH_SHORT).show()
+    // Recibe imagen desde CameraActivity → PreviewActivity
+    private val getPhotoResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val uri = result.data?.getParcelableExtra<Uri>("image_uri")
+                if (uri != null) {
+                    imagenSeleccionadaUri = uri
+                    imgPlanta.setImageURI(uri)
+                }
+            }
         }
-    }
-
-    private val REQUEST_GALLERY_PERMISSION = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +55,6 @@ class RegistroForestAdmin : AppCompatActivity() {
 
         val btnVolver = findViewById<ImageView>(R.id.btnRegresar)
 
-        // 🔥 Obtener UID del usuario actual
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         if (uid == null) {
             Toast.makeText(this, "Error: usuario no autenticado", Toast.LENGTH_LONG).show()
@@ -70,45 +62,22 @@ class RegistroForestAdmin : AppCompatActivity() {
             return
         }
 
-        // 🔥 Nueva referencia correcta
         databaseReference = FirebaseDatabase.getInstance()
             .getReference("Usuarios_ChildCare")
             .child(uid)
             .child("plantas")
 
-        btnSeleccionarFoto.setOnClickListener { solicitarPermisoGaleria() }
+        // Abrir cámara estilo WhatsApp
+        btnSeleccionarFoto.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
+            getPhotoResult.launch(intent)
+        }
 
         btnRegistrar.setOnClickListener { registrarPlanta(uid) }
 
         btnVolver.setOnClickListener {
             startActivity(Intent(this, Index_ChildCare::class.java))
         }
-    }
-
-    private fun solicitarPermisoGaleria() {
-        val permiso = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            Manifest.permission.READ_MEDIA_IMAGES
-        else
-            Manifest.permission.READ_EXTERNAL_STORAGE
-
-        if (ContextCompat.checkSelfPermission(this, permiso) == PackageManager.PERMISSION_GRANTED) {
-            pickImage.launch("image/*")
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(permiso), REQUEST_GALLERY_PERMISSION)
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == REQUEST_GALLERY_PERMISSION &&
-            grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
-        ) {
-            pickImage.launch("image/*")
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun registrarPlanta(uid: String) {
@@ -118,9 +87,9 @@ class RegistroForestAdmin : AppCompatActivity() {
         val hojas = etHojas.text.toString().trim()
         val total = etTotalPlantas.text.toString().trim()
 
-        if (nombre.isEmpty() || grosor.isEmpty() || altura.isEmpty() ||
-            hojas.isEmpty() || total.isEmpty()) {
-
+        if (nombre.isEmpty() || grosor.isEmpty() || altura.isEmpty()
+            || hojas.isEmpty() || total.isEmpty()
+        ) {
             Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
@@ -154,7 +123,7 @@ class RegistroForestAdmin : AppCompatActivity() {
         hojas: String,
         total: String
     ) {
-        // 🔥 Nueva ruta: plantas del usuario
+
         val fotoRef = FirebaseStorage.getInstance().reference
             .child("plantas/$uid/$plantaId.jpg")
 

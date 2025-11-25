@@ -1,8 +1,15 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+
     <style name="Base.Theme.ChildCare" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!-- Evitar que Android aplique Force Dark -->
+        <item name="android:forceDarkAllowed">false</item>
+
+        <!-- Modo claro -->
+        <item name="android:statusBarColor">@color/colorStatusBar</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/colorNavBar</item>
+
     </style>
 
     <style name="Theme.ChildCare" parent="Base.Theme.ChildCare" />

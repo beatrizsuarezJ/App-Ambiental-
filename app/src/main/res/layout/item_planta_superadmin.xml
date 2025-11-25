@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="6dp"
+    app:cardUseCompatPadding="true"
+    android:background="@color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        android:gravity="center_vertical">
+
+        <!-- Imagen de la planta -->
+        <ImageView
+            android:id="@+id/imgPlanta"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_img_round"
+            android:contentDescription="Imagen de planta" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp">
+
+            <!-- Nombre -->
+            <TextView
+                android:id="@+id/txtNombrePlanta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de planta"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/primaryTextColor" />
+
+            <!-- Altura -->
+            <TextView
+                android:id="@+id/txtAltura"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Altura: 0 cm"
+                android:textSize="14sp"
+                android:textColor="@color/secondaryTextColor" />
+
+            <!-- Grosor -->
+            <TextView
+                android:id="@+id/txtGrosor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grosor: 0 cm"
+                android:textSize="14sp"
+                android:textColor="@color/secondaryTextColor" />
+
+            <!-- Hojas -->
+            <TextView
+                android:id="@+id/txtHojas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hojas: 0"
+                android:textSize="14sp"
+                android:textColor="@color/secondaryTextColor" />
+
+            <!-- Total -->
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total: 0"
+                android:textSize="14sp"
+                android:textColor="@color/secondaryTextColor" />
+
+            <!-- Fecha (Nuevo) -->
+            <TextView
+                android:id="@+id/txtFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha: --"
+                android:textSize="14sp"
+                android:textColor="@color/secondaryTextColor" />
+
+        </LinearLayout>
+
+        <!-- Flecha de navegación -->
+        <ImageView
+            android:id="@+id/btnDetallePlanta"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/arrow_right"
+            android:tint="@color/primaryTextColor"
+            android:layout_marginStart="10dp" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

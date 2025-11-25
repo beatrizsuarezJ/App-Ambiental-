@@ -24,17 +24,126 @@
     <string name="textoBienvenidaSuperAdmin">Administrador</string>
 
     <string-array name="municipios_chiapas">
-        <item>Tuxtla Gutierrez</item>
-        <item>San Cristóbal de las Casas</item>
-        <item>Tapachula</item>
+        <item>Acacoyagua</item>
+        <item>Acala</item>
+        <item>Acapetahua</item>
+        <item>Aldama</item>
+        <item>Altamirano</item>
+        <item>Amatán</item>
+        <item>Amatenango de la Frontera</item>
+        <item>Amatenango del Valle</item>
+        <item>Ángel Albino Corzo</item>
+        <item>Arriaga</item>
+        <item>Bejucal de Ocampo</item>
+        <item>Bella Vista</item>
+        <item>Benemérito de las Américas</item>
+        <item>Berriozábal</item>
+        <item>Bochil</item>
+        <item>El Bosque</item>
+        <item>Cacahoatán</item>
+        <item>Catazajá</item>
+        <item>Chalchihuitán</item>
+        <item>Chamula</item>
+        <item>Chanal</item>
+        <item>Chapultenango</item>
+        <item>Chenalhó</item>
+        <item>Chiapa de Corzo</item>
         <item>Chiapilla</item>
-        <item>Pichucalco</item>
-        <item>Rayón</item>
-        <item>Tapilula</item>
-        <item>Pantepec</item>
-        <item>Comitán</item>
+        <item>Chicoasén</item>
+        <item>Chicomuselo</item>
+        <item>Chilón</item>
+        <item>Cintalapa</item>
+        <item>Coapilla</item>
+        <item>Comitán de Domínguez</item>
+        <item>Copainalá</item>
+        <item>El Parral</item>
+        <item>El Porvenir</item>
+        <item>Emiliano Zapata</item>
+        <item>Escuintla</item>
+        <item>Francisco León</item>
+        <item>Frontera Comalapa</item>
+        <item>Frontera Hidalgo</item>
+        <item>La Grandeza</item>
+        <item>Huehuetán</item>
+        <item>Huitiupán</item>
+        <item>Huixtán</item>
+        <item>Huixtla</item>
+        <item>La Independencia</item>
+        <item>Ixhuatán</item>
+        <item>Ixtacomitán</item>
+        <item>Ixtapa</item>
+        <item>Ixtapangajoya</item>
+        <item>Jiquipilas</item>
+        <item>Jitotol</item>
+        <item>Juárez</item>
+        <item>Larráinzar</item>
+        <item>La Libertad</item>
+        <item>Las Margaritas</item>
+        <item>Maravilla Tenejapa</item>
+        <item>Marqués de Comillas</item>
+        <item>Mazapa de Madero</item>
+        <item>Mazatán</item>
+        <item>Metapa de Domínguez</item>
+        <item>Mezcalapa</item>
+        <item>Mitontic</item>
+        <item>Montecristo de Guerrero</item>
+        <item>Motozintla</item>
+        <item>Nicolás Ruiz</item>
         <item>Ocosingo</item>
-
+        <item>Ocotepec</item>
+        <item>Ocozocoautla de Espinosa</item>
+        <item>Ostuacán</item>
+        <item>Osumacinta</item>
+        <item>Oxchuc</item>
+        <item>Palenque</item>
+        <item>Pantelhó</item>
+        <item>Pantepec</item>
+        <item>Pichucalco</item>
+        <item>Pijijiapan</item>
+        <item>El Porvenir</item>
+        <item>Pueblo Nuevo Solistahuacán</item>
+        <item>Rayón</item>
+        <item>Reforma</item>
+        <item>Rincón Chamula San Pedro</item>
+        <item>Sabanilla</item>
+        <item>Salto de Agua</item>
+        <item>San Andrés Duraznal</item>
+        <item>San Cristóbal de las Casas</item>
+        <item>San Fernando</item>
+        <item>San Juan Cancuc</item>
+        <item>San Lucas</item>
+        <item>Santiago el Pinar</item>
+        <item>Siltepec</item>
+        <item>Simojovel</item>
+        <item>Sitalá</item>
+        <item>Socoltenango</item>
+        <item>Solosuchiapa</item>
+        <item>Soyaló</item>
+        <item>Suchiapa</item>
+        <item>Suchiate</item>
+        <item>Sunuapa</item>
+        <item>Tapachula</item>
+        <item>Tapalapa</item>
+        <item>Tapilula</item>
+        <item>Tecpatán</item>
+        <item>Tenejapa</item>
+        <item>Teopisca</item>
+        <item>Tila</item>
+        <item>Tonalá</item>
+        <item>Totolapa</item>
+        <item>Tumbalá</item>
+        <item>Tuxtla Chico</item>
+        <item>Tuxtla Gutiérrez</item>
+        <item>Tuzantán</item>
+        <item>Tzimol</item>
+        <item>Unión Juárez</item>
+        <item>Venustiano Carranza</item>
+        <item>Villa Comaltitlán</item>
+        <item>Villa Corzo</item>
+        <item>Villaflores</item>
+        <item>Yajalón</item>
+        <item>Zinacantán</item>
     </string-array>
+
 
 </resources>

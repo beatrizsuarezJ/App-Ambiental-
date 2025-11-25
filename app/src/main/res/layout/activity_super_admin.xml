@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -8,123 +9,142 @@
     tools:context=".SuperAdmin"
     android:background="@drawable/ws">
 
+    <!-- FRANJA SUPERIOR MORADA -->
+    <View
+        android:id="@+id/statusBarFake"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#D7C2FF" />
 
-    <!-- ▒▒▒ BARRA SUPERIOR LAVANDA ▒▒▒ -->
+    <!-- BARRA SUPERIOR -->
     <LinearLayout
         android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#DDE3FF"
-        android:orientation="horizontal"
+        android:elevation="6dp"
         android:gravity="center_vertical"
-        android:padding="16dp"
-        android:elevation="6dp">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-        <!-- TÍTULO SUPER ADMIN -->
         <TextView
             android:id="@+id/titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SUPER ADMIN"
             android:textSize="26sp"
-            android:textColor="#000000"
             android:textStyle="bold"
-            android:fontFamily="@font/family"/>
+            android:textColor="#000000"
+            android:fontFamily="@font/quicksand_bold" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
-        <!-- Logout -->
-        <LinearLayout
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:elevation="5dp">
-
-            <ImageView
-                android:id="@+id/logOutExitSesion"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/cerrar_sesion"/>
-        </LinearLayout>
-
+        <ImageView
+            android:id="@+id/logOutExitSesion"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/cerrar_sesion"
+            android:contentDescription="Cerrar sesión" />
     </LinearLayout>
 
-    <!-- ▒▒▒ LAYOUT PRINCIPAL ▒▒▒ -->
-    <LinearLayout
+
+
+
+
+    <!-- LAYOUT PRINCIPAL -->
+    <ScrollView
         android:id="@+id/layoutPrincipal"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         android:layout_marginTop="70dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/txtsuperusuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bienvenido Administrador"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/family"
-            android:layout_gravity="center_horizontal"/>
-
-        <TextView
-            android:id="@+id/userActual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hola, Usuario"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/family"
-            android:layout_gravity="center_horizontal"/>
-
-        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/carousel"
-            android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:layout_marginTop="20dp"
-            android:elevation="4dp"/>
-
-        <Button
-            android:id="@+id/btnZonas"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Zonas"
-            android:backgroundTint="#FFFFFF"
-            android:textColor="#000000"
-            android:fontFamily="@font/family"
-            android:textStyle="bold"
-            android:layout_marginTop="25dp"
-            android:elevation="4dp"/>
-    </LinearLayout>
+            android:gravity="center_horizontal">
 
-    <!-- ▒▒▒ LAYOUT ZONAS ▒▒▒ -->
+            <TextView
+                android:id="@+id/txtsuperusuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bienvenido Administrador"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:fontFamily="@font/quicksand_bold"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/userActual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hola, Usuario"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:fontFamily="@font/quicksand_bold"
+                android:layout_marginBottom="16dp"/>
+
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/carousel"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btnZonas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ZONAS"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:backgroundTint="@color/purple_500"
+                app:rippleColor="@color/purple_200"
+                android:elevation="4dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- LAYOUT ZONAS -->
     <LinearLayout
         android:id="@+id/layoutZonas"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         android:layout_marginTop="70dp"
+        android:padding="16dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnBackFromZonas"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Volver"
+            android:tint="#000000"
+            android:layout_marginBottom="12dp"/>
+
+
+        <TextView
+            android:id="@+id/titleZonas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="← Volver"
-            android:backgroundTint="#FFFFFF"
+            android:text="ZONAS"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:fontFamily="@font/family"
             android:textColor="#000000"
-            android:elevation="4dp"
+            android:fontFamily="@font/quicksand_bold"
             android:layout_marginBottom="12dp"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerZonas"
@@ -132,27 +152,37 @@
             android:layout_height="match_parent"/>
     </LinearLayout>
 
-    <!-- ▒▒▒ LAYOUT USUARIOS ▒▒▒ -->
+    <!-- LAYOUT USUARIOS -->
     <LinearLayout
         android:id="@+id/layoutUsuarios"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         android:layout_marginTop="70dp"
+        android:padding="16dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnBackFromUsuarios"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Volver"
+            android:tint="#000000"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/titleUsuarios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="← Volver"
-            android:backgroundTint="#FFFFFF"
+            android:text="USUARIOS"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:fontFamily="@font/family"
             android:textColor="#000000"
-            android:elevation="4dp"
+            android:fontFamily="@font/quicksand_bold"
             android:layout_marginBottom="12dp"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerUsuarios"
@@ -160,27 +190,37 @@
             android:layout_height="match_parent"/>
     </LinearLayout>
 
-    <!-- ▒▒▒ LAYOUT PLANTAS ▒▒▒ -->
+    <!-- LAYOUT PLANTAS -->
     <LinearLayout
         android:id="@+id/layoutPlantas"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         android:layout_marginTop="70dp"
+        android:padding="16dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnBackFromPlantas"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Volver"
+            android:tint="#000000"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/titlePlantas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="← Volver"
-            android:backgroundTint="#FFFFFF"
+            android:text="PLANTAS"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:fontFamily="@font/family"
             android:textColor="#000000"
-            android:elevation="4dp"
+            android:fontFamily="@font/quicksand_bold"
             android:layout_marginBottom="12dp"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPlantas"

@@ -45,16 +45,15 @@ class Location_ChildCare_User : AppCompatActivity(), OnMapReadyCallback {
         solicitarPermisosUbicacion()
 
         // Marcadores
-        val geolocalizacion = LatLng(17.20165473657195, -93.00871197687101)
-        googleMap.addMarker(MarkerOptions().position(geolocalizacion).title("Kinder ChildCare"))
 
-        val geolocalizacion2 = LatLng(17.204356565709787, -93.01574422240188)
-        googleMap.addMarker(MarkerOptions().position(geolocalizacion2).title("UTSelva Rayon"))
+
+        val geolocalizacion = LatLng(17.204356565709787, -93.01574422240188)
+        googleMap.addMarker(MarkerOptions().position(geolocalizacion).title("UTSelva Rayon"))
 
         googleMap.setOnMapLoadedCallback {
             val bounds = LatLngBounds.Builder()
                 .include(geolocalizacion)
-                .include(geolocalizacion2)
+
                 .build()
 
             val padding = 100

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Marco del icono -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M4,4h16c1.1,0 2,0.9 2,2v12c0,1.1 -0.9,2 -2,2H4c-1.1,0 -2,-0.9 -2,-2V6c0,-1.1 0.9,-2 2,-2zM4,6v12h16V6H4z" />
+
+    <!-- Montañas -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8.5,14.5l2.5,-3.01L14.5,16h-9z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,13l2,-2.5 4,5.5h-6z" />
+
+    <!-- Sol -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8.5,9.5m-1.5,0a1.5,1.5 0 1,0 3,0a1.5,1.5 0 1,0 -3,0" />
+
+</vector>

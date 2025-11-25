@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -31,6 +32,10 @@ class Index_ChildCare : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index_child_care)
+
+        onBackPressedDispatcher.addCallback(this) {
+            Toast.makeText(this@Index_ChildCare, "Acción no permitida", Toast.LENGTH_SHORT).show()
+        }
 
         //mostrar un toast para de bienbenido
         mostrarToastPersonalizadoEntrar(this, "¡Bienvenido A App Ambiental")
@@ -174,9 +179,7 @@ class Index_ChildCare : AppCompatActivity() {
         textViewNombreUsuario.text = nombreUsuario
     }
 
-    override fun onBackPressed() {
-        // Eliminar la llamada a super.onBackPressed() para evitar que el usuario regrese atrás
-    }
+
 
     fun signOut(view: android.view.View) {}
 
