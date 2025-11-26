@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,176 +8,153 @@
     android:background="@drawable/ws"
     tools:context=".IniciarSesion_ChildCare">
 
+    <!-- LOGO -->
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/icon_forest_app"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- CONTENEDOR PRINCIPAL -->
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="385dp"
-        android:layout_height="434dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/contenedorPrincipal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/contenedores_diseno"
+        android:clipToOutline="true"
+        android:elevation="6dp"
+        android:orientation="vertical"
+        android:outlineProvider="background"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgLogo">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="380dp"
-            android:layout_height="413dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/contenedores_diseno">
+        <!-- CORREO -->
+        <TextView
+            android:id="@+id/txtCorreo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Correo Electrónico:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
 
-
-            <TextView
-                android:id="@+id/txtCorreo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="35dp"
-                android:text="Correo Electrónico:"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/contenedores_diseno"
+            android:clipToOutline="true"
+            android:elevation="4dp"
+            android:outlineProvider="background">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmailCrearNew"
-                android:layout_width="335dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
                 android:hint="Correo Electrónico"
+                android:paddingHorizontal="14dp"
                 android:textColor="@color/black"
                 android:textColorHint="#000000"
-                android:textSize="18dp"
-                android:textStyle="bold|italic"
-                app:boxStrokeColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtCorreo" />
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/txtContraseña"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
-                android:text="Contraseña:"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtEmailCrearNew" />
+        <!-- CONTRASEÑA -->
+        <TextView
+            android:id="@+id/txtContraseña"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Contraseña:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold|italic" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="MissingConstraints">
-
-            </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/contenedores_diseno"
+            android:clipToOutline="true"
+            android:elevation="4dp"
+            android:outlineProvider="background">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtPassword"
-                android:layout_width="335dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
                 android:hint="Contraseña"
                 android:inputType="textPassword"
-                android:shadowColor="#000000"
+                android:paddingHorizontal="14dp"
                 android:textColor="@color/black"
-                android:textColorHighlight="#673AB7"
                 android:textColorHint="#000000"
-                android:textColorLink="#673AB7"
-                android:textSize="18dp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtContraseña" />
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/showPasswordCheckBox"
-                android:layout_width="53dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="300dp"
-                android:button="@drawable/background_checkbox"
-                android:textColor="#000000"
-                android:textColorHighlight="#000000"
-                android:textColorHint="#000000"
-                android:textColorLink="#000000"
-                android:textStyle="italic|bold"
-                app:flow_horizontalAlign="center"
-                app:flow_verticalAlign="center"
-                app:layout_constraintBottom_toBottomOf="@+id/edtPassword"
-                app:layout_constraintEnd_toEndOf="@+id/edtPassword"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/edtPassword"
-                app:layout_constraintTop_toTopOf="@+id/edtPassword"
-                app:layout_constraintVertical_bias="0.0"
-                app:useMaterialThemeColors="true" />
+        <!-- VER CONTRASEÑA CHECKBOX -->
+        <CheckBox
+            android:id="@+id/showPasswordCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:buttonTint="@color/black"
+            android:padding="2dp"
+            android:text="Mostrar contraseña"
+            android:textColor="@color/black"
+            android:textStyle="italic" />
 
-            <TextView
-                android:id="@+id/btnOlvidePass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="25dp"
-                android:clickable="true"
-                android:text="@string/txtOlvidastePass"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtPassword"
-                tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+        <!-- OLVIDASTE CONTRASEÑA -->
+        <TextView
+            android:id="@+id/btnOlvidePass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="12dp"
+            android:text="@string/txtOlvidastePass"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic" />
 
-            <Button
-                android:id="@+id/btnLoguear"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="55dp"
-                android:backgroundTint="#ffffff"
-                android:text="@string/iniciar_sesion"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
+        <!-- BOTÓN INICIAR SESIÓN -->
+        <Button
+            android:id="@+id/btnLoguear"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            android:elevation="6dp"
+            app:backgroundTint="@color/purple_500"
+            app:rippleColor="@color/purple_200"
+            android:text="@string/iniciar_sesion"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
 
-            <Button
-                android:id="@+id/btnRegistrarse"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#ffffff"
-                android:text="@string/registrarse"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnLoguear" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- BOTÓN REGISTRARSE -->
+        <Button
+            android:id="@+id/btnRegistrarse"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            app:backgroundTint="@color/purple_500"
+            app:rippleColor="@color/purple_200"
+            android:elevation="6dp"
+            android:text="@string/registrarse"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="275dp"
-        android:layout_height="291dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/icon_forest_app"
-        tools:layout_editor_absoluteY="-1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
