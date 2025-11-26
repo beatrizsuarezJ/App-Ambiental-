@@ -277,11 +277,11 @@
                     android:outlineProvider="background"
                     android:elevation="6dp"
                     android:text="Enviar"
+                    app:backgroundTint="@color/purple_500"
+                    app:rippleColor="@color/purple_200"
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold|italic"
-                    app:backgroundTint="@color/purple_500"
-                    app:rippleColor="@color/purple_200"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/passwordConfirmLayout" />
