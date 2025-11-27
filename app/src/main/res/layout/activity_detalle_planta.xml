@@ -14,7 +14,7 @@
         android:background="#D7C2FF"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- ▒▒▒ BARRA DE NAVEGACIÓN LAVANDA ▒▒▒ -->
+    <!-- ▒▒▒ BARRA DE NAVEGACIÓN ▒▒▒ -->
     <LinearLayout
         android:id="@+id/navigationBar"
         android:layout_width="match_parent"
@@ -28,7 +28,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Botón redondo gris -->
         <LinearLayout
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -47,7 +46,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <!-- Título centrado -->
         <TextView
             android:id="@+id/childCareText"
             android:layout_width="wrap_content"
@@ -80,42 +78,55 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- ▒▒▒ FOTO DE LA PLANTA ▒▒▒ -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardFotoDetalle"
+            <!-- ▒▒▒ FOTO WHATSAPP INTEGRADA ▒▒▒ -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contenedorFoto"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardUseCompatPadding="true"
-                app:cardElevation="6dp">
+                android:layout_height="250dp"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <!-- FOTO CIRCULAR -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgPlanta"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_image_placeholder"
+                    app:shapeAppearanceOverlay="@style/CircleImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imgPlantaDetalle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="Foto de la planta"
-                        android:src="@drawable/ic_image_placeholder" />
+                <!-- BOTÓN CÁMARA -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnCamara"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Cambiar foto"
+                    app:srcCompat="@drawable/ic_camera"
+                    app:layout_constraintBottom_toBottomOf="@id/imgPlanta"
+                    app:layout_constraintEnd_toEndOf="@id/imgPlanta"
+                    android:layout_margin="8dp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnCambiarFoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|end"
-                        android:layout_margin="12dp"
-                        android:text="Cambiar foto"
-                        app:icon="@drawable/ic_image"
-                        app:iconGravity="textStart" />
-                </FrameLayout>
-            </com.google.android.material.card.MaterialCardView>
+                <!-- BOTÓN ELIMINAR -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnEliminarFoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="Eliminar foto"
+                    app:srcCompat="@drawable/ic_delete"
+                    android:tint="@android:color/white"
+                    app:backgroundTint="@android:color/holo_red_dark"
+                    app:layout_constraintTop_toTopOf="@id/imgPlanta"
+                    app:layout_constraintEnd_toEndOf="@id/imgPlanta"
+                    android:layout_margin="8dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- ▒▒▒ FIN DE FOTO ▒▒▒ -->
+
 
             <!-- ▒▒▒ CAMPOS DE TEXTO ▒▒▒ -->
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
