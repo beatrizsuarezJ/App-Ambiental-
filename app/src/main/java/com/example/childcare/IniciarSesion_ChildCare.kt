@@ -3,6 +3,7 @@ package com.example.childcare
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -33,6 +34,8 @@ la autenticacion para poder loguearnos*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.iniciar_sesion_child_care)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         //Hacemos un codigo para ocultar y mostrar contraseña
         val passwordEditTexto = findViewById<EditText>(R.id.edtPassword)

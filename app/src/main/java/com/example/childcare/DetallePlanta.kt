@@ -362,6 +362,7 @@ class DetallePlanta : AppCompatActivity() {
 
 
 
+
     private fun exportarPdf() {
         val nombre = etNombre.text.toString()
         val grosor = etGrosor.text.toString()
@@ -375,12 +376,18 @@ class DetallePlanta : AppCompatActivity() {
         val canvas = page.canvas
 
         // -----------------------
-        // Imagen de fondo desde drawable
+        // Imagen de fondo desde drawable (con manejo de errores)
         // -----------------------
-        val bgBitmap = BitmapFactory.decodeResource(resources, R.drawable.membrete_ecoforest)
-        val scaledBg = Bitmap.createScaledBitmap(bgBitmap, pageInfo.pageWidth, pageInfo.pageHeight, true)
-        val paint = Paint().apply { alpha = 200 } // transparencia opcional
-        canvas.drawBitmap(scaledBg, 0f, 0f, paint)
+        try {
+            val bgBitmap = BitmapFactory.decodeResource(resources, R.drawable.membrete_ecoforest)
+            val scaledBg = Bitmap.createScaledBitmap(bgBitmap, pageInfo.pageWidth, pageInfo.pageHeight, true)
+            val paint = Paint().apply { alpha = 200 } // transparencia opcional
+            canvas.drawBitmap(scaledBg, 0f, 0f, paint)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Si falla la carga del fondo, solo se continúa sin fondo
+            Toast.makeText(this, "No se pudo cargar la imagen de fondo", Toast.LENGTH_SHORT).show()
+        }
 
         // -----------------------
         // Título
@@ -441,26 +448,32 @@ class DetallePlanta : AppCompatActivity() {
         // -----------------------
         val fileName = "Planta_${nombre}_${System.currentTimeMillis()}.pdf"
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val values = ContentValues().apply {
-                put(MediaStore.Downloads.DISPLAY_NAME, fileName)
-                put(MediaStore.Downloads.MIME_TYPE, "application/pdf")
-                put(MediaStore.Downloads.IS_PENDING, 1)
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val values = ContentValues().apply {
+                    put(MediaStore.Downloads.DISPLAY_NAME, fileName)
+                    put(MediaStore.Downloads.MIME_TYPE, "application/pdf")
+                    put(MediaStore.Downloads.IS_PENDING, 1)
+                }
+
+                val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)!!
+                uriPdfGenerado = uri
+
+                contentResolver.openOutputStream(uri)?.use { pdf.writeTo(it) }
+
+                values.put(MediaStore.Downloads.IS_PENDING, 0)
+                contentResolver.update(uri, values, null, null)
+
+                Toast.makeText(this, "PDF guardado", Toast.LENGTH_SHORT).show()
             }
-
-            val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)!!
-            uriPdfGenerado = uri
-
-            contentResolver.openOutputStream(uri)?.use { pdf.writeTo(it) }
-
-            values.put(MediaStore.Downloads.IS_PENDING, 0)
-            contentResolver.update(uri, values, null, null)
-
-            Toast.makeText(this, "PDF guardado", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Error al guardar el PDF", Toast.LENGTH_SHORT).show()
+        } finally {
+            pdf.close()
         }
-
-        pdf.close()
     }
+
 
 
 
