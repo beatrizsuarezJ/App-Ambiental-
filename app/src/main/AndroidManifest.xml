@@ -10,7 +10,7 @@
     <!-- Cámara (obligatorio para CameraX) -->
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!-- Ubicación (si tu app lo necesita realmente) -->
+    <!-- Ubicación (si tu app lo necesita) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -23,8 +23,15 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
-    <!-- Android 13+ (API 33) -->
+    <!-- Android 13+ (API 33+) para imágenes -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <!-- === NECESARIO PARA CAMERA CAPTURE (Android 11+) === -->
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
 
     <!-- ====== APLICACIÓN ====== -->
 
