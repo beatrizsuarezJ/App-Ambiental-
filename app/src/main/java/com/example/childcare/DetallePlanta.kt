@@ -397,7 +397,7 @@ class DetallePlanta : AppCompatActivity() {
             isFakeBoldText = true
             color = Color.BLACK
         }
-        canvas.drawText("Reporte de Planta", 60f, 60f, titlePaint)
+        canvas.drawText("Reporte de Planta", 205f, 120f, titlePaint)
 
         var y = 120f
 
